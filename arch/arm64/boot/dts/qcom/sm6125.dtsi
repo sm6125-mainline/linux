@@ -1213,7 +1213,17 @@
 				snps,dis-u1-entry-quirk;
 				snps,dis-u2-entry-quirk;
 				maximum-speed = "high-speed";
-				dr_mode = "peripheral";
+				dr_mode = "otg";
+
+				usb-role-switch;
+
+				ports {
+					port@0 {
+						usb3_dwc3_hs: endpoint {};
+					};
+				};
+
+
 			};
 		};
 

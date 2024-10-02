@@ -11,6 +11,7 @@
 #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
 #include "sm6125.dtsi"
 #include "pm6125.dtsi"
+#include "pmi632.dtsi"
 
 / {
 	model = "Xiaomi Mi A3";
@@ -424,6 +425,10 @@
 	extcon = <&extcon_usb>;
 };
 
+&usb3_dwc3_hs {
+	remote-endpoint = <&pmi632_hs_in>;
+};
+
 &qupv3_id_0 {
 	status = "okay";
 };
@@ -444,4 +449,37 @@
 		touchscreen-size-x = <720>;
 		touchscreen-size-y = <1560>;
       };
+};
+
+&pmi632_typec {
+	status = "okay";
+
+	connector {
+		compatible = "usb-c-connector";
+
+		power-role = "dual";
+		data-role = "dual";
+		self-powered;
+
+		typec-power-opmode = "default";
+		pd-disable;
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				pmi632_hs_in: endpoint {
+					remote-endpoint = <&usb3_dwc3_hs>;
+				};
+			};
+		};
+	};
+};
+
+&pmi632_vbus {
+	regulator-min-microamp = <500000>;
+	regulator-max-microamp = <1000000>;
+	status = "okay";
 };
