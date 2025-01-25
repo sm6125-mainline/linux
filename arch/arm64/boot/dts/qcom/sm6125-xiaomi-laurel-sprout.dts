@@ -258,6 +258,10 @@
 	};
 };
 
+&pm6125_rtc {
+	status = "okay";
+};
+
 &pon_pwrkey {
 	status = "okay";
 };
